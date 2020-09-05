@@ -1,50 +1,34 @@
-# jwt
+# Clojure JWT ![Clojure CI](https://github.com/clj-pkg/jwt/workflows/Clojure%20CI/badge.svg) [![Clojars Project](https://img.shields.io/clojars/v/clj-pkg/jwt.svg)](https://clojars.org/clj-pkg/jwt)
 
-FIXME: my new application.
+This is a minimal implementation of JWT on Clojure inspired by Go version [robbert229/jwt](https://github.com/robbert229/jwt).
 
-## Installation
+## What is JWT?
+JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties. Learn more [jwt.io](https://jwt.io/).
 
-Download from https://github.com/clj-pkg/jwt.
+## What algorithms does it support?
+* HS256
 
-## Usage
+## How does it work?
 
-FIXME: explanation
+### Installation
 
-Run the project directly:
+Include in your project.clj
 
-    $ clojure -m clj-pkg.jwt
+![](https://clojars.org/clj-pkg/jwt/latest-version.svg)
 
-Run the project's tests (they'll fail until you edit them):
+```clojure
+(require [clj-pkg.jwt :as jwt])
+```
 
-    $ clojure -A:test:runner
+### How to create a token?
+Creating a token is actually pretty easy.
 
-Build an uberjar:
+```clojure
+(jwt/sign (jwt/jwt :hs256 {:a "1" :b "2"}) "ThisIsTheSecret")
+```
+    
+### How to validate a token?
 
-    $ clojure -A:uberjar
-
-Run that uberjar:
-
-    $ java -jar jwt.jar
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
-
-## License
-
-Copyright © 2020 Taras.sukhovenko
-
-Distributed under the Eclipse Public License either version 1.0 or (at
-your option) any later version.
+```clojure
+(jwt/verify (jwt/str->jwt valid-jwt) "ThisIsTheSecret")
+```
